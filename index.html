@@ -53,6 +53,8 @@
   .mobile-menu.open ul li:nth-child(3){transition-delay:.25s}
   .mobile-menu.open ul li:nth-child(4){transition-delay:.3s}
   .mobile-menu.open ul li:nth-child(5){transition-delay:.35s}
+  .mobile-menu.open ul li:nth-child(6){transition-delay:.4s}
+  .mobile-menu.open ul li:nth-child(7){transition-delay:.45s}
   .mobile-menu ul a{display:block;padding:1.3rem 0;font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--choco);text-decoration:none;text-align:center;transition:color .2s;-webkit-tap-highlight-color:transparent}
   .mobile-menu ul a:hover,.mobile-menu ul a:active,.mobile-menu ul a:focus{color:var(--palmiero);outline:none}
   .mobile-menu .mob-cta{margin-top:2rem;opacity:0;transform:translateY(20px);transition:opacity .3s .35s,transform .3s .35s}
@@ -210,6 +212,51 @@
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
   .reveal.visible{opacity:1;transform:translateY(0)}
 
+  /* ── EISLIEFERANT ── */
+  #eislieferant{background:var(--choco);padding:6rem 3.5rem;color:var(--cream)}
+  #eislieferant .section-eyebrow{color:var(--rose)}
+  #eislieferant .sub-text{color:rgba(253,246,236,.6)}
+  .lieferant-layout{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:1200px;margin:3.5rem auto 0}
+  .lieferant-question{font-family:'Playfair Display',serif;font-size:1.2rem;font-style:italic;color:var(--rose);line-height:1.55;margin-bottom:1.4rem}
+  .lieferant-answer{font-size:.9rem;color:rgba(253,246,236,.85);line-height:1.9;margin-bottom:1rem}
+  .truck-visual{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:3rem 2rem;text-align:center}
+  .lieferant-badges{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-top:1.5rem}
+  .l-badge{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:.45rem 1rem;font-size:.7rem;letter-spacing:.06em;color:rgba(253,246,236,.8)}
+  .produktion-grid-dark{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem;max-width:1100px;margin:4rem auto 0}
+  .pd-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:1.8rem 1.6rem;text-align:center;transition:background .3s,transform .3s}
+  .pd-card:hover{background:rgba(255,255,255,.1);transform:translateY(-4px)}
+  .pd-icon{font-size:2rem;margin-bottom:.8rem}
+  .pd-title{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--vanilla);font-weight:500;margin-bottom:.5rem}
+  .pd-desc{font-size:.72rem;color:rgba(253,246,236,.55);line-height:1.8}
+
+  /* ── EISPROBEN ── */
+  #eisproben{background:var(--cream);padding:6rem 3.5rem}
+  .probierbox-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:960px;margin:3rem auto 0}
+  .probe-card{border-radius:20px;padding:2.5rem;position:relative;overflow:hidden}
+  .probe-card.free{background:var(--palmiero);color:var(--cream)}
+  .probe-card.paid{background:var(--vanilla);border:2px solid rgba(139,26,16,.15)}
+  .probe-badge{position:absolute;top:1.2rem;right:1.2rem;font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .9rem;border-radius:50px}
+  .probe-card.free .probe-badge{background:rgba(255,255,255,.2);color:white}
+  .probe-card.paid .probe-badge{background:var(--choco);color:var(--cream)}
+  .probe-title{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:.4rem}
+  .probe-card.paid .probe-title{color:var(--choco)}
+  .probe-price{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;line-height:1;margin:.7rem 0 .2rem}
+  .probe-price-note{font-size:.68rem;opacity:.7;margin-bottom:1rem}
+  .probe-list{list-style:none;margin:1rem 0}
+  .probe-list li{font-size:.82rem;padding:.3rem 0;display:flex;gap:.6rem;align-items:flex-start;line-height:1.5}
+  .probe-card.paid .probe-list li{color:var(--text-mid)}
+  .probe-note{font-size:.78rem;opacity:.8;line-height:1.65;margin-top:1rem}
+  .probe-card.paid .probe-note{color:var(--text-mid);opacity:1}
+  .probierbox-note{max-width:680px;margin:2.5rem auto 0;text-align:center;background:var(--vanilla);border-radius:16px;padding:1.5rem 2rem;font-size:.88rem;color:var(--text-mid);line-height:1.75}
+  .probierbox-note strong{color:var(--palmiero)}
+
+  /* ── EISZUBEHÖR ── */
+  #zubehoer{background:var(--vanilla);padding:6rem 3.5rem}
+  .zubehoer-grid{display:flex;flex-wrap:wrap;gap:.9rem;justify-content:center;max-width:900px;margin:2.5rem auto 0}
+  .zubehoer-item{background:var(--cream);border-radius:50px;padding:.75rem 1.5rem;display:flex;align-items:center;gap:.55rem;font-size:.88rem;color:var(--choco);font-weight:500;box-shadow:0 2px 10px rgba(59,31,14,.07);transition:transform .25s,box-shadow .25s}
+  .zubehoer-item:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(59,31,14,.12)}
+  .zubehoer-item .zi{font-size:1.25rem}
+
   @media(max-width:900px){
     #hero{grid-template-columns:1fr;text-align:center;padding-top:7rem}
     .hero-sub{margin-inline:auto}
@@ -223,6 +270,8 @@
     .sl3{bottom:455px;left:auto;right:0}
     #sorten{padding:5rem 1.2rem}
     #kontakt,#herstellung{padding:5rem 1.5rem}
+    .lieferant-layout,.probierbox-layout{grid-template-columns:1fr;gap:2rem}
+    #eislieferant,#eisproben,#zubehoer{padding:5rem 1.5rem}
   }
   @media(max-width:480px){
     .flavors-grid{grid-template-columns:repeat(2,1fr)}
@@ -242,6 +291,7 @@
     <li><a href="#sorten">Sorten</a></li>
     <li><a href="#about">Über uns</a></li>
     <li><a href="#herstellung">Herstellung</a></li>
+    <li><a href="#eislieferant">Eislieferant</a></li>
     <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
   </ul>
   <button class="burger" id="burger" aria-label="Menü öffnen">
@@ -254,6 +304,8 @@
     <li><a href="#sorten" class="mob-link">Sorten</a></li>
     <li><a href="#about" class="mob-link">Über uns</a></li>
     <li><a href="#herstellung" class="mob-link">Herstellung</a></li>
+    <li><a href="#eislieferant" class="mob-link">Eislieferant</a></li>
+    <li><a href="#eisproben" class="mob-link">Eisproben</a></li>
     <li><a href="#kontakt" class="mob-link">Kontakt</a></li>
   </ul>
   <div class="mob-cta">
@@ -628,6 +680,116 @@
     <div class="step-card"><div class="step-num">04</div><div class="step-title">Gefrieren & Rühren</div><p class="step-text">Langsames Einfrieren bei gleichzeitigem Rühren sorgt für cremige Textur ohne Eiskristalle.</p></div>
     <div class="step-card"><div class="step-num">05</div><div class="step-title">Frisch serviert</div><p class="step-text">Täglich frisch — direkt in unserer Eismanufaktur in Teltow bei Berlin.</p></div>
   </div>
+</section>
+
+<!-- EISLIEFERANT B2B -->
+<section id="eislieferant">
+  <div class="section-header reveal">
+    <p class="section-eyebrow">B2B · Gastronomie · Einzelhandel</p>
+    <h2 style="color:var(--cream)">Ihr <em style="color:var(--rose)">Eislieferant</em></h2>
+    <p class="sub-text">Handwerklich hergestellt — zuverlässig geliefert in Berlin & Brandenburg</p>
+  </div>
+  <div class="lieferant-layout">
+    <div class="reveal">
+      <p class="lieferant-question">Sie sind auf der Suche nach einem zuverlässigen Speiseeishersteller und Speiseeislieferanten?</p>
+      <p class="lieferant-answer">Das ist hervorragend! Damit haben Sie den ersten Schritt in die richtige Richtung getan, um Ihren Kunden Speiseeis anbieten zu können, das sich geschmacklich, optisch und qualitativ von der breiten Masse abhebt.</p>
+      <p style="font-size:.87rem;color:rgba(253,246,236,.65);line-height:1.9;margin-bottom:1.8rem">Ihre Kunden werden es lieben und sich schnell an Sie binden — denn bekanntlich kauft man Eis dort, wo es am besten schmeckt. Aus unserer Eismanufaktur in Teltow bei Berlin beliefern wir Sie ausschließlich mit handwerklichen und frisch hergestellten Speiseeisspezialtäten.</p>
+      <a href="#eisproben" class="btn" style="border:2px solid var(--rose);color:var(--rose);border-radius:50px;padding:.85rem 2.2rem;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;font-weight:500;display:inline-block;transition:all .3s" onmouseover="this.style.background='var(--rose)';this.style.color='var(--choco)'" onmouseout="this.style.background='transparent';this.style.color='var(--rose)'">Eisproben anfragen →</a>
+    </div>
+    <div class="truck-visual reveal">
+      <div style="font-size:4.5rem;margin-bottom:1.2rem">🚚🍦</div>
+      <div class="lieferant-badges">
+        <span class="l-badge">Berlin & Brandenburg</span>
+        <span class="l-badge">Frisch geliefert</span>
+        <span class="l-badge">Eiscafé & Gastronomie</span>
+        <span class="l-badge">Großhandel</span>
+        <span class="l-badge">Zuverlässig</span>
+      </div>
+    </div>
+  </div>
+  <div class="produktion-grid-dark reveal">
+    <div class="pd-card">
+      <div class="pd-icon">🌿</div>
+      <div class="pd-title">100% Natürlich</div>
+      <div class="pd-desc">Frei von künstlichen Farb-, Zusatz- und Aromastoffen — selbstverständlich hausgemacht.</div>
+    </div>
+    <div class="pd-card">
+      <div class="pd-icon">🥛</div>
+      <div class="pd-title">Vegan & Laktosefrei</div>
+      <div class="pd-desc">Immer vegane und laktosefreie Sorten im Sortiment. Fast alle Sorten ohne glutenhaltige Zutaten.</div>
+    </div>
+    <div class="pd-card">
+      <div class="pd-icon">✨</div>
+      <div class="pd-title">Neue Sorten</div>
+      <div class="pd-desc">Klassiker auf hohem Niveau und ausgefallene Kreationen nach eigenen Rezepten — ständig neu.</div>
+    </div>
+    <div class="pd-card">
+      <div class="pd-icon">🏆</div>
+      <div class="pd-title">Aus Leidenschaft</div>
+      <div class="pd-desc">Handwerklich in 24-Stunden-Langzeitreife nach italienischer Tradition gefertigt.</div>
+    </div>
+  </div>
+</section>
+
+<!-- EISPROBEN -->
+<section id="eisproben">
+  <div class="section-header reveal">
+    <p class="section-eyebrow">Für Eiscafés & Gastronomie</p>
+    <h2>Unverbindliche <em>Eisproben</em></h2>
+    <p class="sub-text">Überzeugen Sie sich von der Qualität unserer Eiscreme — bevor Sie bestellen.</p>
+  </div>
+  <div class="probierbox-layout reveal">
+    <div class="probe-card free">
+      <span class="probe-badge">✓ Kostenlos</span>
+      <div class="probe-title">Mit Gewerbeanmeldung</div>
+      <div class="probe-price">0 €</div>
+      <div class="probe-price-note">inkl. Lieferung · zzgl. ges. MwSt.</div>
+      <ul class="probe-list">
+        <li>✓&nbsp;3 Behälter Eis à 2,5 l nach Wahl</li>
+        <li>✓&nbsp;oder 2 Behälter Eis à 5 l nach Wahl</li>
+        <li>✓&nbsp;Geschäftsadresse + Nachweis Gewerbeanmeldung</li>
+      </ul>
+      <p class="probe-note">Senden Sie uns Ihre Geschäftsadresse und den Nachweis Ihrer Gewerbeanmeldung — und wir schicken Ihnen die Probierbox kostenfrei zu.</p>
+    </div>
+    <div class="probe-card paid">
+      <span class="probe-badge">Ohne Gewerbe</span>
+      <div class="probe-title">Privatperson</div>
+      <div class="probe-price" style="color:var(--palmiero)">65 €</div>
+      <div class="probe-price-note">inkl. Lieferung · zzgl. ges. MwSt.</div>
+      <ul class="probe-list">
+        <li>🍦&nbsp;3 Behälter Eis à 2,5 l nach Wahl</li>
+        <li>🍦&nbsp;oder 2 Behälter Eis à 5 l nach Wahl</li>
+        <li>🍦&nbsp;Schutzgebühr bei 1. Bestellung verrechnet</li>
+      </ul>
+      <p class="probe-note">Die Schutzgebühr von 65 € wird bei Ihrer ersten regulären Bestellung vollständig verrechnet.</p>
+    </div>
+  </div>
+  <div class="probierbox-note reveal">
+    <strong>Möchten Sie mit einem Eislieferanten zusammenarbeiten, auf den Sie sich verlassen können?</strong><br>
+    Bestellen Sie unsere unverbindliche Probierbox und überzeugen Sie sich von der Qualität unserer Eiscreme — noch heute!
+  </div>
+  <div style="text-align:center;margin-top:2.5rem" class="reveal">
+    <a href="#kontakt" class="btn btn-primary">Probierbox anfragen</a>
+  </div>
+</section>
+
+<!-- EISZUBEHÖR -->
+<section id="zubehoer">
+  <div class="section-header reveal">
+    <p class="section-eyebrow">Rundum-Service</p>
+    <h2>Eis<em>zubehör</em></h2>
+    <p class="sub-text">Alles, was Sie für Ihren Eisverkauf benötigen — aus einer Hand.</p>
+  </div>
+  <div class="zubehoer-grid reveal">
+    <div class="zubehoer-item"><span class="zi">🍦</span>Eiswaffeln</div>
+    <div class="zubehoer-item"><span class="zi">♻️</span>Bio Becher</div>
+    <div class="zubehoer-item"><span class="zi">🥄</span>Bio Löffel</div>
+    <div class="zubehoer-item"><span class="zi">🍫</span>Toppings</div>
+    <div class="zubehoer-item"><span class="zi">🍪</span>Kekse</div>
+    <div class="zubehoer-item"><span class="zi">🔧</span>Spatel</div>
+    <div class="zubehoer-item"><span class="zi">🍨</span>Eiskellen</div>
+  </div>
+  <p class="sub-text reveal" style="text-align:center;margin-top:2rem">Bei Fragen oder Wünschen — <a href="#kontakt" style="color:var(--palmiero);text-decoration:none;font-weight:500">kontaktieren Sie uns</a>.</p>
 </section>
 
 <!-- KONTAKT -->
