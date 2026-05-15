@@ -15,12 +15,10 @@
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   html{scroll-behavior:smooth}
-  body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+  body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden}
   a,button{-webkit-tap-highlight-color:transparent;outline:none}
   a:focus,a:active,a:focus-visible,button:focus,button:active,button:focus-visible{outline:none;-webkit-tap-highlight-color:transparent;background-color:transparent}
 
-  .cursor{position:fixed;width:18px;height:18px;background:var(--straw);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:multiply}
-  .cursor.big{width:50px;height:50px;background:var(--mango)}
 
   /* NAV */
   nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3.5rem;background:rgba(253,246,236,.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(92,32,24,.08)}
@@ -34,7 +32,7 @@
   .nav-cta:hover{opacity:.85}
 
   /* BURGER */
-  .burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:none;cursor:none;padding:4px;z-index:210;flex-shrink:0;-webkit-tap-highlight-color:transparent;-webkit-appearance:none;appearance:none;outline:none;user-select:none;color:inherit}
+  .burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:4px;z-index:210;flex-shrink:0;-webkit-tap-highlight-color:transparent;-webkit-appearance:none;appearance:none;outline:none;user-select:none;color:inherit}
   .burger:focus,.burger:active,.burger:focus-visible{outline:none;background:none;box-shadow:none;-webkit-tap-highlight-color:transparent}
   .burger span{display:block;height:2px;background:var(--choco);border-radius:2px;transition:transform .35s cubic-bezier(.77,0,.175,1),opacity .2s,width .3s}
   .burger span:nth-child(1){width:24px}
@@ -75,7 +73,7 @@
   .hero-sub{font-size:1rem;color:var(--text-mid);line-height:1.9;max-width:440px;margin-bottom:2.5rem;animation:fadeUp .6s .2s ease both}
   .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .6s .3s ease both}
   @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-  .btn{display:inline-block;padding:.85rem 2.2rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:all .3s;border:2px solid transparent;cursor:none}
+  .btn{display:inline-block;padding:.85rem 2.2rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:all .3s;border:2px solid transparent;cursor:pointer}
   .btn-primary{background:var(--palmiero);color:var(--cream)}
   .btn-primary:hover{background:var(--choco)}
   .btn-outline{border-color:var(--palmiero);color:var(--palmiero)}
@@ -150,7 +148,7 @@
   /* TAB NAVIGATION for sorten */
   #sorten{padding:6rem 3.5rem;background:var(--vanilla)}
   .tabs{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:3rem}
-  .tab-btn{background:white;border:2px solid rgba(92,32,24,.15);border-radius:50px;padding:.6rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);cursor:none;transition:all .3s;font-weight:500}
+  .tab-btn{background:white;border:2px solid rgba(92,32,24,.15);border-radius:50px;padding:.6rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);cursor:pointer;transition:all .3s;font-weight:500}
   .tab-btn:hover{border-color:var(--palmiero);color:var(--palmiero)}
   .tab-btn.active{background:var(--palmiero);border-color:var(--palmiero);color:white}
   .tab-panel{display:none}
@@ -159,7 +157,7 @@
 
   /* FLAVOR GRID */
   .flavors-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:1rem;max-width:1200px;margin:0 auto}
-  .flavor-card{background:var(--cream);border-radius:18px;padding:1.6rem 1.2rem;text-align:center;transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden;cursor:none}
+  .flavor-card{background:var(--cream);border-radius:18px;padding:1.6rem 1.2rem;text-align:center;transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden;cursor:pointer}
   .flavor-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(59,31,14,.12)}
   .flavor-card.premium::after{content:'PREMIUM';position:absolute;top:.7rem;right:.7rem;background:var(--palmiero);color:white;font-size:.45rem;letter-spacing:.2em;padding:.2rem .5rem;border-radius:50px}
   .flavor-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:18px 18px 0 0;background:var(--accent,var(--choco))}
@@ -229,7 +227,6 @@
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
 
 <nav>
   <div class="logo">
@@ -693,16 +690,6 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
-/* ---- cursor ---- */
-const cursor = document.getElementById('cursor');
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top  = e.clientY + 'px';
-});
-document.querySelectorAll('a,button,.flavor-card,.step-card,.tab-btn').forEach(el => {
-  el.addEventListener('mouseenter', () => cursor.classList.add('big'));
-  el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
-});
 
 /* ---- reveal ---- */
 const revealObs = new IntersectionObserver(
