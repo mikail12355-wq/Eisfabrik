@@ -161,7 +161,8 @@
   .flavor-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(59,31,14,.12)}
   .flavor-card.premium::after{content:'PREMIUM';position:absolute;top:.7rem;right:.7rem;background:var(--palmiero);color:white;font-size:.45rem;letter-spacing:.2em;padding:.2rem .5rem;border-radius:50px}
   .flavor-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:18px 18px 0 0;background:var(--accent,var(--choco))}
-  .flavor-ball{width:75px;height:75px;border-radius:50%;margin:0 auto 1rem;box-shadow:inset -10px -7px 20px rgba(0,0,0,.2),0 4px 16px rgba(0,0,0,.1)}
+  .flavor-ball{width:75px;height:75px;border-radius:50%;margin:0 auto 1rem;box-shadow:inset -10px -7px 20px rgba(0,0,0,.2),0 4px 16px rgba(0,0,0,.1);overflow:hidden}
+  .flavor-ball img{width:100%;height:100%;object-fit:cover;display:block}
   .flavor-name{font-family:'Dancing Script',cursive;font-size:1.1rem;font-weight:600;color:var(--palmiero);margin-bottom:.3rem}
   .flavor-desc{font-size:.68rem;color:var(--text-mid);line-height:1.6}
 
@@ -338,122 +339,122 @@
     <div class="flavors-grid reveal">
 
       <div class="flavor-card premium" style="--accent:#C0392B">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#f5e8d0,#D4A96A)"></div>
+        <div class="flavor-ball"><img src="img/crunchy-kokos.jpg" alt="Crunchy Kokos" loading="lazy"></div>
         <div class="flavor-name">Crunchy Kokos</div>
         <p class="flavor-desc">Milcheis mit weißer Schokolade & Kokosflocken</p>
       </div>
       <div class="flavor-card premium" style="--accent:#3B1F0E">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#7B4A2A,#3B1F0E)"></div>
+        <div class="flavor-ball"><img src="img/haselnuss.jpg" alt="Bacio-Eis" loading="lazy"></div>
         <div class="flavor-name">Bacio-Eis</div>
         <p class="flavor-desc">Milcheis mit Haselnüssen & kakaohaltiger Fettglasur</p>
       </div>
       <div class="flavor-card premium" style="--accent:#2C2C2C">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#E0D8D0,#A0968C)"></div>
+        <div class="flavor-ball"><img src="img/cookies-cream.jpg" alt="Cookies & Cream" loading="lazy"></div>
         <div class="flavor-name">Cookies & Cream</div>
         <p class="flavor-desc">Milcheis mit knusprigen Schokokeksen</p>
       </div>
       <div class="flavor-card premium" style="--accent:#C87830">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#FFE8A0,#C87830)"></div>
+        <div class="flavor-ball"><img src="img/erdnuss-karamell.jpg" alt="Erdnuss-Karamell" loading="lazy"></div>
         <div class="flavor-name">Erdnuss-Karamell</div>
         <p class="flavor-desc">Milcheis mit Erdnüssen & salzigem Karamell, getoppt mit Schokolade</p>
       </div>
       <div class="flavor-card" style="--accent:#D4A96A">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#f5f0e8,#D4C8A8)"></div>
+        <div class="flavor-ball"><img src="img/kokos.jpg" alt="Kokos" loading="lazy"></div>
         <div class="flavor-name">Kokos</div>
         <p class="flavor-desc">Milcheis mit Kokosnuss</p>
       </div>
       <div class="flavor-card" style="--accent:#E8E0D0">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#FFFFF0,#F0E8D0)"></div>
+        <div class="flavor-ball"><img src="img/weisse-schokolade.jpg" alt="Weiße Schokolade" loading="lazy"></div>
         <div class="flavor-name">Weiße Schokolade</div>
         <p class="flavor-desc">Milcheis mit weißer Schokolade & Kakaobutter</p>
       </div>
       <div class="flavor-card" style="--accent:#C0392B">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#7B3A2A,#3B1508)"></div>
+        <div class="flavor-ball"><img src="img/dark-chili.jpg" alt="Dark Chili" loading="lazy"></div>
         <div class="flavor-name">Dark Chili</div>
         <p class="flavor-desc">Milcheis mit dunkler Schokolade & Chili</p>
       </div>
       <div class="flavor-card" style="--accent:#4DB89A">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#B0EAD8,#4DB89A)"></div>
+        <div class="flavor-ball"><img src="img/after-8.jpg" alt="After 8" loading="lazy"></div>
         <div class="flavor-name">After 8</div>
         <p class="flavor-desc">Milcheis mit Pfefferminz & Schokotouch</p>
       </div>
       <div class="flavor-card premium" style="--accent:#6B3A1F">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#C09060,#6B3A1F)"></div>
+        <div class="flavor-ball"><img src="img/walnuss-feige.jpg" alt="Walnuss-Feige" loading="lazy"></div>
         <div class="flavor-name">Walnuss-Feige</div>
         <p class="flavor-desc">Milcheis mit Walnuss & Feigen</p>
       </div>
       <div class="flavor-card" style="--accent:#D44D8A">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#F8D0E0,#C06080)"></div>
+        <div class="flavor-ball"><img src="img/joghurt-kirsch.jpg" alt="Joghurt-Kirsch" loading="lazy"></div>
         <div class="flavor-name">Joghurt-Kirsch</div>
         <p class="flavor-desc">Milcheis mit Joghurtgeschmack & Kirschen</p>
       </div>
       <div class="flavor-card" style="--accent:#8B6040">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#D4B090,#8B6040)"></div>
+        <div class="flavor-ball"><img src="img/cappuccino.jpg" alt="Cappuccino" loading="lazy"></div>
         <div class="flavor-name">Cappuccino</div>
         <p class="flavor-desc">Milcheis mit Kaffeegeschmack & extra Schuss Kaffee</p>
       </div>
       <div class="flavor-card premium" style="--accent:#D4AE82">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#F5E6C8,#D4AE82)"></div>
+        <div class="flavor-ball"><img src="img/windbeutel.jpg" alt="Windbeutel" loading="lazy"></div>
         <div class="flavor-name">Windbeutel</div>
         <p class="flavor-desc">Milcheis mit Windbeutelgeschmack</p>
       </div>
       <div class="flavor-card" style="--accent:#3B1F0E">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#7B4A2A,#2A1008)"></div>
+        <div class="flavor-ball"><img src="img/schokolade.jpg" alt="Schokolade" loading="lazy"></div>
         <div class="flavor-name">Schokolade</div>
         <p class="flavor-desc">Milcheis mit Kakaopulver</p>
       </div>
       <div class="flavor-card" style="--accent:#F0D080">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#FFF5D6,#F0D080)"></div>
+        <div class="flavor-ball"><img src="img/vanille.jpg" alt="Vanille" loading="lazy"></div>
         <div class="flavor-name">Vanille</div>
         <p class="flavor-desc">Milcheis mit Vanillegeschmack</p>
       </div>
       <div class="flavor-card" style="--accent:#6B4030">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#A07060,#6B3020)"></div>
+        <div class="flavor-ball"><img src="img/espresso.jpg" alt="Espresso" loading="lazy"></div>
         <div class="flavor-name">Espresso</div>
         <p class="flavor-desc">Milcheis mit Kaffeegeschmack & kakaohaltiger Fettglasur</p>
       </div>
       <div class="flavor-card" style="--accent:#D0C8C0">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#F5F0EC,#D0C0B0)"></div>
+        <div class="flavor-ball"><img src="img/stracciatella.jpg" alt="Stracciatella" loading="lazy"></div>
         <div class="flavor-name">Stracciatella</div>
         <p class="flavor-desc">Milcheis mit kakaohaltiger Fettglasur</p>
       </div>
       <div class="flavor-card" style="--accent:#C0A880">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#E8D8B0,#B09060)"></div>
+        <div class="flavor-ball"><img src="img/tiramisu.jpg" alt="Tiramisu" loading="lazy"></div>
         <div class="flavor-name">Tiramisu</div>
         <p class="flavor-desc">Milcheis mit Tiramisugeschmack</p>
       </div>
       <div class="flavor-card" style="--accent:#E8D8C0">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#F5ECD8,#D8C8A8)"></div>
+        <div class="flavor-ball"><img src="img/malaga.jpg" alt="Malaga" loading="lazy"></div>
         <div class="flavor-name">Malaga</div>
         <p class="flavor-desc">Milcheis mit Rosinen & Marsalwein</p>
       </div>
       <div class="flavor-card premium" style="--accent:#6B9E6B">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#C5E8BF,#6B9E6B)"></div>
+        <div class="flavor-ball"><img src="img/pistazie.jpg" alt="Pistazie" loading="lazy"></div>
         <div class="flavor-name">Pistazie</div>
         <p class="flavor-desc">Milcheis mit Pistazien aus Bronte</p>
       </div>
       <div class="flavor-card premium" style="--accent:#C09060">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#E8D0A8,#C09060)"></div>
+        <div class="flavor-ball"><img src="img/haselnuss.jpg" alt="Haselnuss" loading="lazy"></div>
         <div class="flavor-name">Haselnuss</div>
         <p class="flavor-desc">Milcheis mit Haselnüssen</p>
       </div>
       <div class="flavor-card premium" style="--accent:#8B7050">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#C8B090,#8B7050)"></div>
+        <div class="flavor-ball"><img src="img/walnuss.jpg" alt="Walnuss" loading="lazy"></div>
         <div class="flavor-name">Walnuss</div>
         <p class="flavor-desc">Milcheis mit Walnüssen</p>
       </div>
       <div class="flavor-card" style="--accent:#C87830">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#FFE0A0,#C87830)"></div>
+        <div class="flavor-ball"><img src="img/karamell.jpg" alt="Karamell" loading="lazy"></div>
         <div class="flavor-name">Karamell</div>
         <p class="flavor-desc">Milcheis mit Karamellgeschmack</p>
       </div>
       <div class="flavor-card premium" style="--accent:#E8D44D">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#FFFFF0,#E8D44D)"></div>
+        <div class="flavor-ball"><img src="img/grandmas-lemon-cheesecake.jpg" alt="Grandmas Lemon-Cheesecake" loading="lazy"></div>
         <div class="flavor-name">Grandmas Lemon-Cheesecake</div>
         <p class="flavor-desc">Milcheis mit Frischkäse & Keksstückchen</p>
       </div>
       <div class="flavor-card" style="--accent:#4A3020">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#8A7060,#3A2010)"></div>
+        <div class="flavor-ball"><img src="img/cookies-cream.jpg" alt="Cookies" loading="lazy"></div>
         <div class="flavor-name">Cookies</div>
         <p class="flavor-desc">Milcheis mit Keksstückchen & Kakaocreme</p>
       </div>
@@ -469,62 +470,62 @@
     <div class="flavors-grid reveal">
 
       <div class="flavor-card" style="--accent:#E8556A">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#F8A0B0,#E8556A)"></div>
+        <div class="flavor-ball"><img src="img/erdbeere.jpg" alt="Erdbeere" loading="lazy"></div>
         <div class="flavor-name">Erdbeere</div>
         <p class="flavor-desc">Sorbet mit Erdbeeren</p>
       </div>
       <div class="flavor-card" style="--accent:#5B4B8A">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#9090C8,#5B4B8A)"></div>
+        <div class="flavor-ball"><img src="img/heidelbeere.jpg" alt="Heidelbeere" loading="lazy"></div>
         <div class="flavor-name">Heidelbeere</div>
         <p class="flavor-desc">Sorbet mit Heidelbeeren</p>
       </div>
       <div class="flavor-card" style="--accent:#F5A623">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#FFE0A0,#F5A623)"></div>
+        <div class="flavor-ball"><img src="img/mango.jpg" alt="Mango" loading="lazy"></div>
         <div class="flavor-name">Mango</div>
         <p class="flavor-desc">Sorbet mit Mango</p>
       </div>
       <div class="flavor-card" style="--accent:#E8D44D">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#FFFFF0,#E8D44D)"></div>
+        <div class="flavor-ball"><img src="img/zitrone.jpg" alt="Zitrone" loading="lazy"></div>
         <div class="flavor-name">Zitrone</div>
         <p class="flavor-desc">Sorbet mit Zitronen</p>
       </div>
       <div class="flavor-card" style="--accent:#F5A580">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#FFD8C0,#F5A580)"></div>
+        <div class="flavor-ball"><img src="img/aprikose-maracuja.jpg" alt="Aprikose-Maracuja" loading="lazy"></div>
         <div class="flavor-name">Aprikose-Maracuja</div>
         <p class="flavor-desc">Sorbet mit Aprikosen & Maracuja-Varigato</p>
       </div>
       <div class="flavor-card" style="--accent:#E8809A">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#F8C0D0,#E8809A)"></div>
+        <div class="flavor-ball"><img src="img/orange-minze.jpg" alt="Orange-Minze" loading="lazy"></div>
         <div class="flavor-name">Orange-Minze</div>
         <p class="flavor-desc">Sorbet mit Blutorangen & frischer Minze</p>
       </div>
       <div class="flavor-card" style="--accent:#4DB89A">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#B0EAD8,#4DB89A)"></div>
+        <div class="flavor-ball"><img src="img/orange-basilikum.jpg" alt="Orange-Basilikum" loading="lazy"></div>
         <div class="flavor-name">Orange-Basilikum</div>
         <p class="flavor-desc">Sorbet mit Blutorangen & frischem Basilikum</p>
       </div>
       <div class="flavor-card" style="--accent:#D44D8A">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#F0A0C0,#D44D8A)"></div>
+        <div class="flavor-ball"><img src="img/himbeere.jpg" alt="Himbeere" loading="lazy"></div>
         <div class="flavor-name">Himbeere</div>
         <p class="flavor-desc">Sorbet mit Himbeeren</p>
       </div>
       <div class="flavor-card" style="--accent:#F5E6A0">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#FFFFF0,#F5E6A0)"></div>
+        <div class="flavor-ball"><img src="img/banane.jpg" alt="Banane" loading="lazy"></div>
         <div class="flavor-name">Banane</div>
         <p class="flavor-desc">Sorbet mit frischen Bananen</p>
       </div>
       <div class="flavor-card" style="--accent:#E8A0B0">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#F8D8E0,#E8A0B0)"></div>
+        <div class="flavor-ball"><img src="img/rhabarber-vanille.jpg" alt="Rhabarber-Vanille" loading="lazy"></div>
         <div class="flavor-name">Rhabarber-Vanille</div>
         <p class="flavor-desc">Sorbet mit frischem Rhabarber & Vanilleschoten</p>
       </div>
       <div class="flavor-card" style="--accent:#6B9E6B">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#C8E8A0,#6B9E6B)"></div>
+        <div class="flavor-ball"><img src="img/kiwi.jpg" alt="Kiwi" loading="lazy"></div>
         <div class="flavor-name">Kiwi</div>
         <p class="flavor-desc">Sorbet mit frischer Kiwi</p>
       </div>
       <div class="flavor-card" style="--accent:#F5C080">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#FFE8C0,#F5C080)"></div>
+        <div class="flavor-ball"><img src="img/aprikose.jpg" alt="Aprikose" loading="lazy"></div>
         <div class="flavor-name">Aprikose</div>
         <p class="flavor-desc">Sorbet mit Aprikosen</p>
       </div>
@@ -540,22 +541,22 @@
     <div class="flavors-grid reveal">
 
       <div class="flavor-card" style="--accent:#4DB89A">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#A0E8D8,#4DB89A)"></div>
+        <div class="flavor-ball"><img src="img/himmelblau.jpg" alt="Himmelblau" loading="lazy"></div>
         <div class="flavor-name">Himmelblau</div>
         <p class="flavor-desc">Milcheis mit Kaugummi- / Marshmallowgeschmack</p>
       </div>
       <div class="flavor-card premium" style="--accent:#8B3A2A">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#C09070,#6B3020)"></div>
+        <div class="flavor-ball"><img src="img/kind-schokolade.jpg" alt="Kind-Schokolade" loading="lazy"></div>
         <div class="flavor-name">Kind-Schokolade</div>
         <p class="flavor-desc">Milcheis mit weißer Schokolade und Vollmilchschokolade</p>
       </div>
       <div class="flavor-card" style="--accent:#E8556A">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#F8C0C8,#E060A0)"></div>
+        <div class="flavor-ball"><img src="img/kiba.jpg" alt="KiBa" loading="lazy"></div>
         <div class="flavor-name">KiBa</div>
         <p class="flavor-desc">Sorbet mit frischen Bananen & Kirschen</p>
       </div>
       <div class="flavor-card" style="--accent:#F5A580">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#FFD8C0,#F5A080)"></div>
+        <div class="flavor-ball"><img src="img/kaugummi.jpg" alt="Kaugummi" loading="lazy"></div>
         <div class="flavor-name">Kaugummi</div>
         <p class="flavor-desc">Milcheis mit Kaugummigeschmack</p>
       </div>
