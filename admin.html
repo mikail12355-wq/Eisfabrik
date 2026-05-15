@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin – Palmiero Eismanufaktur</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FDF6EC; --vanilla: #F5E6C8; --choco: #5C2018;
+    --choco-mid: #8B3A2A; --palmiero: #8B1A10; --rose: #E8A0A0;
+    --text: #2A1508; --text-mid: #6B4C35; --border: #E8D8C8;
+    --green: #2d7a4f; --red: #c0392b;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
+
+  /* ── LOGIN ── */
+  #login-screen {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--cream) 50%, var(--vanilla) 100%);
+    padding: 2rem;
+  }
+  .login-card {
+    background: white; border-radius: 24px;
+    padding: 3rem 2.5rem; width: 100%; max-width: 420px;
+    box-shadow: 0 20px 60px rgba(92,32,24,.12);
+    text-align: center;
+  }
+  .login-logo {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.4rem; color: var(--palmiero);
+    margin-bottom: .2rem;
+  }
+  .login-sub {
+    font-size: .65rem; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--choco-mid); margin-bottom: 2.5rem;
+  }
+  .login-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; color: var(--choco);
+    margin-bottom: 1.8rem;
+  }
+  .form-group { margin-bottom: 1.2rem; text-align: left; }
+  .form-group label {
+    display: block; font-size: .72rem; font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--text-mid); margin-bottom: .5rem;
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: .85rem 1rem;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: .9rem;
+    color: var(--text); background: var(--cream);
+    transition: border-color .2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--palmiero);
+  }
+  .form-group textarea { resize: vertical; min-height: 70px; }
+  .form-group select { cursor: pointer; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+    padding: .85rem 1.8rem; border-radius: 50px;
+    font-family: 'DM Sans', sans-serif; font-size: .82rem;
+    font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+    cursor: pointer; border: none; transition: all .25s;
+  }
+  .btn-primary { background: var(--palmiero); color: white; width: 100%; }
+  .btn-primary:hover { background: var(--choco); }
+  .btn-danger  { background: #fff0f0; color: var(--red); border: 1.5px solid #f8c8c8; padding: .5rem 1rem; font-size: .72rem; border-radius: 8px; }
+  .btn-danger:hover  { background: var(--red); color: white; border-color: var(--red); }
+  .btn-success { background: #f0faf4; color: var(--green); border: 1.5px solid #b8e8cc; }
+  .btn-success:hover { background: var(--green); color: white; border-color: var(--green); }
+  .btn-sm { padding: .5rem 1.2rem; font-size: .72rem; border-radius: 8px; }
+  .btn-outline { background: transparent; color: var(--palmiero); border: 2px solid var(--palmiero); }
+  .btn-outline:hover { background: var(--palmiero); color: white; }
+
+  .error-msg { color: var(--red); font-size: .82rem; margin-top: 1rem; min-height: 1.2rem; }
+
+  /* ── ADMIN LAYOUT ── */
+  #admin-screen { display: none; }
+
+  header {
+    background: var(--choco); color: var(--cream);
+    padding: 1.2rem 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,.2);
+  }
+  .header-logo { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--rose); }
+  .header-right { display: flex; align-items: center; gap: 1rem; }
+  .header-user { font-size: .78rem; color: rgba(253,246,236,.6); }
+  .btn-logout {
+    background: rgba(255,255,255,.1); color: var(--cream);
+    border: 1px solid rgba(255,255,255,.2); border-radius: 8px;
+    padding: .45rem 1rem; font-size: .75rem; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; transition: background .2s;
+  }
+  .btn-logout:hover { background: rgba(255,255,255,.2); }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+
+  /* ── ADD FORM CARD ── */
+  .add-card {
+    background: white; border-radius: 20px;
+    padding: 2rem 2.5rem; margin-bottom: 2.5rem;
+    box-shadow: 0 4px 20px rgba(92,32,24,.07);
+  }
+  .add-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; color: var(--choco);
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: .6rem;
+  }
+  .add-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .add-form-grid .span2 { grid-column: 1 / -1; }
+  .color-row { display: flex; align-items: center; gap: 1rem; }
+  .color-row input[type="color"] {
+    width: 56px; height: 42px; padding: 2px;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    cursor: pointer; background: var(--cream);
+  }
+  .color-preview {
+    width: 42px; height: 42px; border-radius: 50%;
+    box-shadow: inset -4px -3px 10px rgba(0,0,0,.2);
+    flex-shrink: 0;
+  }
+  .checkbox-row { display: flex; align-items: center; gap: .7rem; margin-top: .3rem; }
+  .checkbox-row input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: var(--palmiero); }
+  .checkbox-row label { font-size: .88rem; color: var(--text-mid); cursor: pointer; }
+  .form-actions { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
+  .save-feedback { font-size: .82rem; color: var(--green); font-weight: 600; opacity: 0; transition: opacity .3s; }
+  .save-feedback.show { opacity: 1; }
+
+  /* ── SORTEN LIST ── */
+  .sorten-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1.2rem; flex-wrap: wrap; gap: 1rem;
+  }
+  .sorten-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; color: var(--choco);
+  }
+  .sorten-count {
+    font-size: .72rem; background: var(--vanilla); color: var(--text-mid);
+    padding: .3rem .9rem; border-radius: 50px; font-weight: 600;
+  }
+
+  .tabs-admin { display: flex; gap: .5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .tab-admin-btn {
+    background: white; border: 1.5px solid var(--border);
+    border-radius: 50px; padding: .5rem 1.3rem;
+    font-family: 'DM Sans', sans-serif; font-size: .75rem;
+    letter-spacing: .08em; text-transform: uppercase;
+    color: var(--text-mid); cursor: pointer; transition: all .2s;
+    font-weight: 500;
+  }
+  .tab-admin-btn:hover { border-color: var(--palmiero); color: var(--palmiero); }
+  .tab-admin-btn.active { background: var(--palmiero); border-color: var(--palmiero); color: white; }
+
+  .sorten-table {
+    background: white; border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(92,32,24,.06);
+    overflow: hidden;
+  }
+  .sorten-table-head {
+    display: grid; grid-template-columns: 48px 1fr 2fr 100px 80px 90px;
+    background: var(--choco); color: rgba(253,246,236,.65);
+    font-size: .65rem; letter-spacing: .15em; text-transform: uppercase;
+    padding: .9rem 1.2rem; gap: 1rem; align-items: center;
+  }
+  .sorte-row {
+    display: grid; grid-template-columns: 48px 1fr 2fr 100px 80px 90px;
+    padding: 1rem 1.2rem; gap: 1rem; align-items: center;
+    border-bottom: 1px solid var(--border);
+    transition: background .15s;
+  }
+  .sorte-row:last-child { border-bottom: none; }
+  .sorte-row:hover { background: var(--cream); }
+  .sorte-ball {
+    width: 38px; height: 38px; border-radius: 50%;
+    box-shadow: inset -4px -3px 10px rgba(0,0,0,.2);
+    flex-shrink: 0;
+  }
+  .sorte-name { font-weight: 600; font-size: .88rem; color: var(--choco); }
+  .sorte-desc { font-size: .75rem; color: var(--text-mid); line-height: 1.5; }
+  .premium-badge {
+    display: inline-block; background: var(--palmiero); color: white;
+    font-size: .55rem; letter-spacing: .15em; text-transform: uppercase;
+    padding: .2rem .6rem; border-radius: 50px;
+  }
+  .kat-badge {
+    display: inline-block; font-size: .65rem; font-weight: 600;
+    padding: .25rem .7rem; border-radius: 50px; letter-spacing: .06em;
+  }
+  .kat-milch   { background: #fff3e0; color: #8B4513; }
+  .kat-sorbet  { background: #e8f5e9; color: #2d6a4f; }
+  .kat-kinder  { background: #e3f2fd; color: #1565c0; }
+
+  .empty-state {
+    text-align: center; padding: 3rem;
+    color: var(--text-mid); font-size: .88rem;
+  }
+
+  .list-loading {
+    text-align: center; padding: 2.5rem;
+    color: var(--text-mid); font-size: .88rem;
+  }
+
+  @media (max-width: 700px) {
+    main { padding: 1.5rem 1rem 3rem; }
+    .add-form-grid { grid-template-columns: 1fr; }
+    .add-form-grid .span2 { grid-column: 1; }
+    .sorten-table-head { display: none; }
+    .sorte-row { grid-template-columns: 38px 1fr auto; grid-template-rows: auto auto; }
+    .sorte-row > .sorte-desc { display: none; }
+    header { padding: 1rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">Palmiero</div>
+    <div class="login-sub">Eismanufaktur · Admin</div>
+    <h2>Anmelden</h2>
+    <div class="form-group">
+      <label>E-Mail</label>
+      <input type="email" id="login-email" placeholder="admin@palmiero.de" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label>Passwort</label>
+      <input type="password" id="login-pw" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <div class="error-msg" id="login-error"></div>
+    <button class="btn btn-primary" onclick="doLogin()" style="margin-top:1.2rem">Einloggen</button>
+  </div>
+</div>
+
+<!-- ══ ADMIN DASHBOARD ══ -->
+<div id="admin-screen">
+  <header>
+    <div class="header-logo">Palmiero Admin</div>
+    <div class="header-right">
+      <span class="header-user" id="user-email"></span>
+      <button class="btn-logout" onclick="doLogout()">Abmelden</button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- NEUE SORTE HINZUFÜGEN -->
+    <div class="add-card">
+      <h2>🍦 Neue Sorte hinzufügen</h2>
+      <div class="add-form-grid">
+        <div class="form-group">
+          <label>Name *</label>
+          <input type="text" id="f-name" placeholder="z.B. Pistazie">
+        </div>
+        <div class="form-group">
+          <label>Kategorie *</label>
+          <select id="f-kategorie">
+            <option value="milch">🥛 Milcheis</option>
+            <option value="sorbet">🌿 Sorbet (Vegan)</option>
+            <option value="kinder">🎈 Kindereis</option>
+          </select>
+        </div>
+        <div class="form-group span2">
+          <label>Beschreibung</label>
+          <textarea id="f-beschreibung" placeholder="z.B. Milcheis mit Pistazien aus Bronte"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Akzentfarbe</label>
+          <div class="color-row">
+            <input type="color" id="f-farbe" value="#C0392B" oninput="updateColorPreview()">
+            <div class="color-preview" id="color-preview" style="background:#C0392B"></div>
+            <span style="font-size:.78rem;color:var(--text-mid)">Für die Karte</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Bild-URL <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+          <input type="url" id="f-bild" placeholder="https://… (leer lassen = Farbverlauf)">
+        </div>
+        <div class="form-group">
+          <label>&nbsp;</label>
+          <div class="checkbox-row">
+            <input type="checkbox" id="f-premium">
+            <label for="f-premium">Premium-Sorte (zeigt PREMIUM-Badge)</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Reihenfolge <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+          <input type="number" id="f-reihenfolge" placeholder="1, 2, 3 …" min="0">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-success" onclick="addSorte()">✓ Sorte speichern</button>
+        <button class="btn btn-outline btn-sm" onclick="resetForm()">Zurücksetzen</button>
+        <span class="save-feedback" id="save-feedback">✓ Gespeichert!</span>
+      </div>
+      <div class="error-msg" id="add-error"></div>
+    </div>
+
+    <!-- SORTEN LISTE -->
+    <div>
+      <div class="sorten-header">
+        <h2>📋 Alle Sorten</h2>
+        <span class="sorten-count" id="sorten-count">– Sorten</span>
+      </div>
+
+      <div class="tabs-admin">
+        <button class="tab-admin-btn active" data-kat="alle" onclick="filterKat(this)">Alle</button>
+        <button class="tab-admin-btn" data-kat="milch"  onclick="filterKat(this)">🥛 Milcheis</button>
+        <button class="tab-admin-btn" data-kat="sorbet" onclick="filterKat(this)">🌿 Sorbets</button>
+        <button class="tab-admin-btn" data-kat="kinder" onclick="filterKat(this)">🎈 Kindereis</button>
+      </div>
+
+      <div class="sorten-table">
+        <div class="sorten-table-head">
+          <div></div>
+          <div>Name</div>
+          <div>Beschreibung</div>
+          <div>Kategorie</div>
+          <div>Status</div>
+          <div>Aktion</div>
+        </div>
+        <div id="sorten-list">
+          <div class="list-loading">🍦 Sorten werden geladen …</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════
+   SUPABASE KONFIGURATION — gleiche Werte wie index.html
+   ════════════════════════════════════════════════════ */
+const SUPABASE_URL      = 'DEINE_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'DEIN_SUPABASE_ANON_KEY';
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/* ── STATE ── */
+let alleSorten   = [];
+let aktiverFilter = 'alle';
+
+/* ── AUTH ── */
+async function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pw    = document.getElementById('login-pw').value;
+  document.getElementById('login-error').textContent = '';
+
+  const { error } = await sb.auth.signInWithPassword({ email, password: pw });
+  if (error) {
+    document.getElementById('login-error').textContent = 'E-Mail oder Passwort falsch.';
+  }
+}
+
+async function doLogout() {
+  await sb.auth.signOut();
+}
+
+/* Enter-Taste im Login-Passwortfeld */
+document.getElementById('login-pw').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+/* Auth-State-Listener */
+sb.auth.onAuthStateChange((event, session) => {
+  if (session) {
+    document.getElementById('login-screen').style.display  = 'none';
+    document.getElementById('admin-screen').style.display  = 'block';
+    document.getElementById('user-email').textContent = session.user.email;
+    loadAlleSorten();
+  } else {
+    document.getElementById('login-screen').style.display  = 'flex';
+    document.getElementById('admin-screen').style.display  = 'none';
+  }
+});
+
+/* ── SORTEN LADEN ── */
+async function loadAlleSorten() {
+  document.getElementById('sorten-list').innerHTML =
+    '<div class="list-loading">🍦 Sorten werden geladen …</div>';
+
+  const { data, error } = await sb
+    .from('sorten')
+    .select('*')
+    .order('reihenfolge', { ascending: true })
+    .order('erstellt_am', { ascending: true });
+
+  if (error) {
+    document.getElementById('sorten-list').innerHTML =
+      '<div class="list-loading">⚠️ Fehler beim Laden.</div>';
+    return;
+  }
+
+  alleSorten = data;
+  renderListe();
+}
+
+/* ── LISTE RENDERN ── */
+function renderListe() {
+  const gefiltert = aktiverFilter === 'alle'
+    ? alleSorten
+    : alleSorten.filter(s => s.kategorie === aktiverFilter);
+
+  document.getElementById('sorten-count').textContent =
+    `${alleSorten.length} Sorten gesamt`;
+
+  if (!gefiltert.length) {
+    document.getElementById('sorten-list').innerHTML =
+      '<div class="empty-state">Keine Sorten in dieser Kategorie.</div>';
+    return;
+  }
+
+  document.getElementById('sorten-list').innerHTML = gefiltert.map(s => `
+    <div class="sorte-row" id="row-${s.id}">
+      <div class="sorte-ball" style="background:radial-gradient(circle at 35% 35%,${lightenHex(s.farbe)},${s.farbe || '#C0392B'})"></div>
+      <div>
+        <div class="sorte-name">${s.name}</div>
+        ${s.reihenfolge != null ? `<div style="font-size:.65rem;color:var(--text-mid);margin-top:.2rem">Nr. ${s.reihenfolge}</div>` : ''}
+      </div>
+      <div class="sorte-desc">${s.beschreibung || '—'}</div>
+      <div><span class="kat-badge kat-${s.kategorie}">${katLabel(s.kategorie)}</span></div>
+      <div>${s.premium ? '<span class="premium-badge">Premium</span>' : ''}</div>
+      <div>
+        <button class="btn btn-danger" onclick="deleteSorte('${s.id}', '${s.name.replace(/'/g,"\\'")}')">
+          🗑 Löschen
+        </button>
+      </div>
+    </div>`).join('');
+}
+
+/* ── FILTER ── */
+function filterKat(btn) {
+  document.querySelectorAll('.tab-admin-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  aktiverFilter = btn.dataset.kat;
+  renderListe();
+}
+
+/* ── SORTE HINZUFÜGEN ── */
+async function addSorte() {
+  const name = document.getElementById('f-name').value.trim();
+  document.getElementById('add-error').textContent = '';
+
+  if (!name) {
+    document.getElementById('add-error').textContent = 'Bitte einen Namen eingeben.';
+    return;
+  }
+
+  const neueSort = {
+    name,
+    kategorie:    document.getElementById('f-kategorie').value,
+    beschreibung: document.getElementById('f-beschreibung').value.trim() || null,
+    farbe:        document.getElementById('f-farbe').value,
+    premium:      document.getElementById('f-premium').checked,
+    bild_url:     document.getElementById('f-bild').value.trim() || null,
+    reihenfolge:  parseInt(document.getElementById('f-reihenfolge').value) || null,
+  };
+
+  const { error } = await sb.from('sorten').insert([neueSort]);
+
+  if (error) {
+    document.getElementById('add-error').textContent = 'Fehler: ' + error.message;
+    return;
+  }
+
+  const fb = document.getElementById('save-feedback');
+  fb.classList.add('show');
+  setTimeout(() => fb.classList.remove('show'), 2500);
+
+  resetForm();
+  loadAlleSorten();
+}
+
+/* ── SORTE LÖSCHEN ── */
+async function deleteSorte(id, name) {
+  if (!confirm(`„${name}" wirklich löschen?`)) return;
+
+  const row = document.getElementById(`row-${id}`);
+  if (row) row.style.opacity = '.4';
+
+  const { error } = await sb.from('sorten').delete().eq('id', id);
+
+  if (error) {
+    alert('Fehler beim Löschen: ' + error.message);
+    if (row) row.style.opacity = '1';
+    return;
+  }
+
+  loadAlleSorten();
+}
+
+/* ── HILFSFUNKTIONEN ── */
+function lightenHex(hex, f = 0.38) {
+  const n = parseInt((hex || '#C0392B').replace('#', ''), 16);
+  const r = Math.min(255, (n >> 16)         + Math.round(255 * f));
+  const g = Math.min(255, ((n >> 8) & 0xFF) + Math.round(255 * f));
+  const b = Math.min(255, (n & 0xFF)        + Math.round(255 * f));
+  return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
+}
+
+function katLabel(k) {
+  return k === 'milch' ? '🥛 Milcheis' : k === 'sorbet' ? '🌿 Sorbet' : '🎈 Kindereis';
+}
+
+function updateColorPreview() {
+  const v = document.getElementById('f-farbe').value;
+  document.getElementById('color-preview').style.background = v;
+}
+
+function resetForm() {
+  document.getElementById('f-name').value         = '';
+  document.getElementById('f-beschreibung').value = '';
+  document.getElementById('f-bild').value         = '';
+  document.getElementById('f-premium').checked    = false;
+  document.getElementById('f-reihenfolge').value  = '';
+  document.getElementById('f-farbe').value        = '#C0392B';
+  document.getElementById('f-kategorie').value    = 'milch';
+  document.getElementById('add-error').textContent = '';
+  updateColorPreview();
+}
+</script>
+</body>
+</html>

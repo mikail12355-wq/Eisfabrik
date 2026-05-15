@@ -167,6 +167,7 @@
   .flavor-ball img{width:100%;height:100%;object-fit:cover;display:block}
   .flavor-name{font-family:'Dancing Script',cursive;font-size:1.1rem;font-weight:600;color:var(--palmiero);margin-bottom:.3rem}
   .flavor-desc{font-size:.68rem;color:var(--text-mid);line-height:1.6}
+  .grid-loading{grid-column:1/-1;text-align:center;padding:3rem 1rem;color:var(--text-mid);font-size:.85rem;letter-spacing:.08em;opacity:.7}
 
   /* ABOUT */
   #about{padding:6rem 3.5rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:1300px;margin:0 auto}
@@ -392,129 +393,8 @@
     <div class="category-desc reveal">
       Unser cremiges Milcheis wird handwerklich hergestellt in einer <strong>24-Stunden-Langzeitreife</strong>, mit frischer Milch und Sahne aus der Region. Es wird mit den feinsten Nüssen geröstet wie <strong>Pistazien aus Bronte</strong> nach italienischer Tradition.
     </div>
-    <div class="flavors-grid reveal">
-
-      <div class="flavor-card premium" style="--accent:#C0392B">
-        <div class="flavor-ball"><img src="img/crunchy-kokos.png" alt="Crunchy Kokos" loading="lazy"></div>
-        <div class="flavor-name">Crunchy Kokos</div>
-        <p class="flavor-desc">Milcheis mit weißer Schokolade & Kokosflocken</p>
-      </div>
-      <div class="flavor-card premium" style="--accent:#3B1F0E">
-        <div class="flavor-ball"><img src="img/haselnuss.png" alt="Bacio-Eis" loading="lazy"></div>
-        <div class="flavor-name">Bacio-Eis</div>
-        <p class="flavor-desc">Milcheis mit Haselnüssen & kakaohaltiger Fettglasur</p>
-      </div>
-      <div class="flavor-card premium" style="--accent:#2C2C2C">
-        <div class="flavor-ball"><img src="img/cookies-cream.png" alt="Cookies & Cream" loading="lazy"></div>
-        <div class="flavor-name">Cookies & Cream</div>
-        <p class="flavor-desc">Milcheis mit knusprigen Schokokeksen</p>
-      </div>
-      <div class="flavor-card premium" style="--accent:#C87830">
-        <div class="flavor-ball"><img src="img/erdnuss-karamell.png" alt="Erdnuss-Karamell" loading="lazy"></div>
-        <div class="flavor-name">Erdnuss-Karamell</div>
-        <p class="flavor-desc">Milcheis mit Erdnüssen & salzigem Karamell, getoppt mit Schokolade</p>
-      </div>
-      <div class="flavor-card" style="--accent:#D4A96A">
-        <div class="flavor-ball"><img src="img/kokos.png" alt="Kokos" loading="lazy"></div>
-        <div class="flavor-name">Kokos</div>
-        <p class="flavor-desc">Milcheis mit Kokosnuss</p>
-      </div>
-      <div class="flavor-card" style="--accent:#E8E0D0">
-        <div class="flavor-ball"><img src="img/weisse-schokolade.png" alt="Weiße Schokolade" loading="lazy"></div>
-        <div class="flavor-name">Weiße Schokolade</div>
-        <p class="flavor-desc">Milcheis mit weißer Schokolade & Kakaobutter</p>
-      </div>
-      <div class="flavor-card" style="--accent:#C0392B">
-        <div class="flavor-ball"><img src="img/dark-chili.png" alt="Dark Chili" loading="lazy"></div>
-        <div class="flavor-name">Dark Chili</div>
-        <p class="flavor-desc">Milcheis mit dunkler Schokolade & Chili</p>
-      </div>
-      <div class="flavor-card" style="--accent:#4DB89A">
-        <div class="flavor-ball"><img src="img/after-8.png" alt="After 8" loading="lazy"></div>
-        <div class="flavor-name">After 8</div>
-        <p class="flavor-desc">Milcheis mit Pfefferminz & Schokotouch</p>
-      </div>
-      <div class="flavor-card premium" style="--accent:#6B3A1F">
-        <div class="flavor-ball"><img src="img/walnuss-feige.png" alt="Walnuss-Feige" loading="lazy"></div>
-        <div class="flavor-name">Walnuss-Feige</div>
-        <p class="flavor-desc">Milcheis mit Walnuss & Feigen</p>
-      </div>
-      <div class="flavor-card" style="--accent:#D44D8A">
-        <div class="flavor-ball"><img src="img/joghurt-kirsch.png" alt="Joghurt-Kirsch" loading="lazy"></div>
-        <div class="flavor-name">Joghurt-Kirsch</div>
-        <p class="flavor-desc">Milcheis mit Joghurtgeschmack & Kirschen</p>
-      </div>
-      <div class="flavor-card" style="--accent:#8B6040">
-        <div class="flavor-ball"><img src="img/cappuccino.png" alt="Cappuccino" loading="lazy"></div>
-        <div class="flavor-name">Cappuccino</div>
-        <p class="flavor-desc">Milcheis mit Kaffeegeschmack & extra Schuss Kaffee</p>
-      </div>
-      <div class="flavor-card premium" style="--accent:#D4AE82">
-        <div class="flavor-ball"><img src="img/windbeutel.png" alt="Windbeutel" loading="lazy"></div>
-        <div class="flavor-name">Windbeutel</div>
-        <p class="flavor-desc">Milcheis mit Windbeutelgeschmack</p>
-      </div>
-      <div class="flavor-card" style="--accent:#3B1F0E">
-        <div class="flavor-ball"><img src="img/schokolade.png" alt="Schokolade" loading="lazy"></div>
-        <div class="flavor-name">Schokolade</div>
-        <p class="flavor-desc">Milcheis mit Kakaopulver</p>
-      </div>
-      <div class="flavor-card" style="--accent:#F0D080">
-        <div class="flavor-ball"><img src="img/vanille.png" alt="Vanille" loading="lazy"></div>
-        <div class="flavor-name">Vanille</div>
-        <p class="flavor-desc">Milcheis mit Vanillegeschmack</p>
-      </div>
-      <div class="flavor-card" style="--accent:#6B4030">
-        <div class="flavor-ball"><img src="img/espresso.png" alt="Espresso" loading="lazy"></div>
-        <div class="flavor-name">Espresso</div>
-        <p class="flavor-desc">Milcheis mit Kaffeegeschmack & kakaohaltiger Fettglasur</p>
-      </div>
-      <div class="flavor-card" style="--accent:#D0C8C0">
-        <div class="flavor-ball"><img src="img/stracciatella.png" alt="Stracciatella" loading="lazy"></div>
-        <div class="flavor-name">Stracciatella</div>
-        <p class="flavor-desc">Milcheis mit kakaohaltiger Fettglasur</p>
-      </div>
-      <div class="flavor-card" style="--accent:#C0A880">
-        <div class="flavor-ball"><img src="img/tiramisu.png" alt="Tiramisu" loading="lazy"></div>
-        <div class="flavor-name">Tiramisu</div>
-        <p class="flavor-desc">Milcheis mit Tiramisugeschmack</p>
-      </div>
-      <div class="flavor-card" style="--accent:#E8D8C0">
-        <div class="flavor-ball"><img src="img/malaga.png" alt="Malaga" loading="lazy"></div>
-        <div class="flavor-name">Malaga</div>
-        <p class="flavor-desc">Milcheis mit Rosinen & Marsalwein</p>
-      </div>
-      <div class="flavor-card premium" style="--accent:#6B9E6B">
-        <div class="flavor-ball"><img src="img/pistazie.png" alt="Pistazie" loading="lazy"></div>
-        <div class="flavor-name">Pistazie</div>
-        <p class="flavor-desc">Milcheis mit Pistazien aus Bronte</p>
-      </div>
-      <div class="flavor-card premium" style="--accent:#C09060">
-        <div class="flavor-ball"><img src="img/haselnuss.png" alt="Haselnuss" loading="lazy"></div>
-        <div class="flavor-name">Haselnuss</div>
-        <p class="flavor-desc">Milcheis mit Haselnüssen</p>
-      </div>
-      <div class="flavor-card premium" style="--accent:#8B7050">
-        <div class="flavor-ball"><img src="img/walnuss.png" alt="Walnuss" loading="lazy"></div>
-        <div class="flavor-name">Walnuss</div>
-        <p class="flavor-desc">Milcheis mit Walnüssen</p>
-      </div>
-      <div class="flavor-card" style="--accent:#C87830">
-        <div class="flavor-ball"><img src="img/karamell.png" alt="Karamell" loading="lazy"></div>
-        <div class="flavor-name">Karamell</div>
-        <p class="flavor-desc">Milcheis mit Karamellgeschmack</p>
-      </div>
-      <div class="flavor-card premium" style="--accent:#E8D44D">
-        <div class="flavor-ball"><img src="img/grandmas-lemon-cheesecake.png" alt="Grandmas Lemon-Cheesecake" loading="lazy"></div>
-        <div class="flavor-name">Grandmas Lemon-Cheesecake</div>
-        <p class="flavor-desc">Milcheis mit Frischkäse & Keksstückchen</p>
-      </div>
-      <div class="flavor-card" style="--accent:#4A3020">
-        <div class="flavor-ball"><img src="img/cookies-cream.png" alt="Cookies" loading="lazy"></div>
-        <div class="flavor-name">Cookies</div>
-        <p class="flavor-desc">Milcheis mit Keksstückchen & Kakaocreme</p>
-      </div>
-
+    <div class="flavors-grid" id="grid-milch">
+      <div class="grid-loading">🍦 Sorten werden geladen …</div>
     </div>
   </div>
 
@@ -523,69 +403,8 @@
     <div class="category-desc reveal">
       Unser exquisites Fruchteis ist unschlagbar in Geschmack und Qualität. Bei uns werden <strong>45% frische Früchte handpüriert</strong> — keine künstlichen Aromastoffe. Alle Sorbets sind <strong>vegan & laktosefrei</strong>. Klassiker wie Erdbeer-Basilikum oder Orange-Minze sind unsere beliebtesten Sorten.
     </div>
-    <div class="flavors-grid reveal">
-
-      <div class="flavor-card" style="--accent:#E8556A">
-        <div class="flavor-ball"><img src="img/erdbeere.png" alt="Erdbeere" loading="lazy"></div>
-        <div class="flavor-name">Erdbeere</div>
-        <p class="flavor-desc">Sorbet mit Erdbeeren</p>
-      </div>
-      <div class="flavor-card" style="--accent:#5B4B8A">
-        <div class="flavor-ball"><img src="img/heidelbeere.png" alt="Heidelbeere" loading="lazy"></div>
-        <div class="flavor-name">Heidelbeere</div>
-        <p class="flavor-desc">Sorbet mit Heidelbeeren</p>
-      </div>
-      <div class="flavor-card" style="--accent:#F5A623">
-        <div class="flavor-ball"><img src="img/mango.png" alt="Mango" loading="lazy"></div>
-        <div class="flavor-name">Mango</div>
-        <p class="flavor-desc">Sorbet mit Mango</p>
-      </div>
-      <div class="flavor-card" style="--accent:#E8D44D">
-        <div class="flavor-ball"><img src="img/zitrone.png" alt="Zitrone" loading="lazy"></div>
-        <div class="flavor-name">Zitrone</div>
-        <p class="flavor-desc">Sorbet mit Zitronen</p>
-      </div>
-      <div class="flavor-card" style="--accent:#F5A580">
-        <div class="flavor-ball"><img src="img/aprikose-maracuja.png" alt="Aprikose-Maracuja" loading="lazy"></div>
-        <div class="flavor-name">Aprikose-Maracuja</div>
-        <p class="flavor-desc">Sorbet mit Aprikosen & Maracuja-Varigato</p>
-      </div>
-      <div class="flavor-card" style="--accent:#E8809A">
-        <div class="flavor-ball"><img src="img/orange-minze.png" alt="Orange-Minze" loading="lazy"></div>
-        <div class="flavor-name">Orange-Minze</div>
-        <p class="flavor-desc">Sorbet mit Blutorangen & frischer Minze</p>
-      </div>
-      <div class="flavor-card" style="--accent:#4DB89A">
-        <div class="flavor-ball"><img src="img/orange-basilikum.png" alt="Orange-Basilikum" loading="lazy"></div>
-        <div class="flavor-name">Orange-Basilikum</div>
-        <p class="flavor-desc">Sorbet mit Blutorangen & frischem Basilikum</p>
-      </div>
-      <div class="flavor-card" style="--accent:#D44D8A">
-        <div class="flavor-ball"><img src="img/himbeere.png" alt="Himbeere" loading="lazy"></div>
-        <div class="flavor-name">Himbeere</div>
-        <p class="flavor-desc">Sorbet mit Himbeeren</p>
-      </div>
-      <div class="flavor-card" style="--accent:#F5E6A0">
-        <div class="flavor-ball"><img src="img/banane.png" alt="Banane" loading="lazy"></div>
-        <div class="flavor-name">Banane</div>
-        <p class="flavor-desc">Sorbet mit frischen Bananen</p>
-      </div>
-      <div class="flavor-card" style="--accent:#E8A0B0">
-        <div class="flavor-ball"><img src="img/rhabarber-vanille.png" alt="Rhabarber-Vanille" loading="lazy"></div>
-        <div class="flavor-name">Rhabarber-Vanille</div>
-        <p class="flavor-desc">Sorbet mit frischem Rhabarber & Vanilleschoten</p>
-      </div>
-      <div class="flavor-card" style="--accent:#6B9E6B">
-        <div class="flavor-ball"><img src="img/kiwi.png" alt="Kiwi" loading="lazy"></div>
-        <div class="flavor-name">Kiwi</div>
-        <p class="flavor-desc">Sorbet mit frischer Kiwi</p>
-      </div>
-      <div class="flavor-card" style="--accent:#F5C080">
-        <div class="flavor-ball"><img src="img/aprikose.png" alt="Aprikose" loading="lazy"></div>
-        <div class="flavor-name">Aprikose</div>
-        <p class="flavor-desc">Sorbet mit Aprikosen</p>
-      </div>
-
+    <div class="flavors-grid" id="grid-sorbet">
+      <div class="grid-loading">🌿 Sorten werden geladen …</div>
     </div>
   </div>
 
@@ -594,39 +413,8 @@
     <div class="category-desc reveal">
       Unser Kindereis ist unschlagbar im Geschmack und der Qualität — wir <strong>handpürieren 45% frische Früchte</strong> und verwenden <strong>keine künstlichen Aromastoffe</strong>. Auf Wunsch erstellen wir auch Ihre eigene Eiskreation!
     </div>
-    <div class="flavors-grid reveal">
-
-      <div class="flavor-card" style="--accent:#4DB89A">
-        <div class="flavor-ball"><img src="img/himmelblau.png" alt="Himmelblau" loading="lazy"></div>
-        <div class="flavor-name">Himmelblau</div>
-        <p class="flavor-desc">Milcheis mit Kaugummi- / Marshmallowgeschmack</p>
-      </div>
-      <div class="flavor-card premium" style="--accent:#8B3A2A">
-        <div class="flavor-ball"><img src="img/kind-schokolade.png" alt="Kind-Schokolade" loading="lazy"></div>
-        <div class="flavor-name">Kind-Schokolade</div>
-        <p class="flavor-desc">Milcheis mit weißer Schokolade und Vollmilchschokolade</p>
-      </div>
-      <div class="flavor-card" style="--accent:#E8556A">
-        <div class="flavor-ball"><img src="img/kiba.png" alt="KiBa" loading="lazy"></div>
-        <div class="flavor-name">KiBa</div>
-        <p class="flavor-desc">Sorbet mit frischen Bananen & Kirschen</p>
-      </div>
-      <div class="flavor-card" style="--accent:#F5A580">
-        <div class="flavor-ball"><img src="img/kaugummi.png" alt="Kaugummi" loading="lazy"></div>
-        <div class="flavor-name">Kaugummi</div>
-        <p class="flavor-desc">Milcheis mit Kaugummigeschmack</p>
-      </div>
-      <div class="flavor-card premium" style="--accent:#6B3A1F">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#C09060,#6B3A1F)"></div>
-        <div class="flavor-name">Nougat</div>
-        <p class="flavor-desc">Milcheis mit Kakao & Haselnüssen</p>
-      </div>
-      <div class="flavor-card premium" style="--accent:#3B1F0E">
-        <div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,#7B4A2A,#2A1008)"></div>
-        <div class="flavor-name">Brownie</div>
-        <p class="flavor-desc">Milcheis mit Schokoladengeschmack & Browniegeschmack</p>
-      </div>
-
+    <div class="flavors-grid" id="grid-kinder">
+      <div class="grid-loading">🎈 Sorten werden geladen …</div>
     </div>
     <div style="text-align:center;margin-top:2.5rem;padding:2rem;background:white;border-radius:16px;max-width:500px;margin-inline:auto">
       <div style="font-size:1.5rem;margin-bottom:.5rem">✨</div>
@@ -832,7 +620,67 @@
   <p>Impressum · Datenschutz</p>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+/* ════════════════════════════════════════════════════
+   SUPABASE KONFIGURATION
+   Werte aus deinem Supabase-Projekt eintragen:
+   Settings → API → Project URL & anon public key
+   ════════════════════════════════════════════════════ */
+const SUPABASE_URL      = 'DEINE_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'DEIN_SUPABASE_ANON_KEY';
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/* ---- Hilfsfunktion: Farbe aufhellen ---- */
+function lightenHex(hex, f = 0.38) {
+  const n = parseInt((hex || '#C0392B').replace('#', ''), 16);
+  const r = Math.min(255, (n >> 16)        + Math.round(255 * f));
+  const g = Math.min(255, ((n >> 8) & 0xFF) + Math.round(255 * f));
+  const b = Math.min(255, (n & 0xFF)        + Math.round(255 * f));
+  return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
+}
+
+/* ---- Sorte als HTML-Karte rendern ---- */
+function renderCard(s) {
+  const farbe = s.farbe || '#C0392B';
+  const ball  = s.bild_url
+    ? `<div class="flavor-ball"><img src="${s.bild_url}" alt="${s.name}" loading="lazy"></div>`
+    : `<div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,${lightenHex(farbe)},${farbe})"></div>`;
+  return `
+    <div class="flavor-card${s.premium ? ' premium' : ''}" style="--accent:${farbe}">
+      ${ball}
+      <div class="flavor-name">${s.name}</div>
+      <p class="flavor-desc">${s.beschreibung || ''}</p>
+    </div>`;
+}
+
+/* ---- Sorten aus Supabase laden & rendern ---- */
+async function loadSorten() {
+  const { data, error } = await sb
+    .from('sorten')
+    .select('*')
+    .order('reihenfolge', { ascending: true })
+    .order('erstellt_am', { ascending: true });
+
+  if (error) {
+    console.error('Supabase Fehler:', error);
+    ['milch','sorbet','kinder'].forEach(k => {
+      document.getElementById(`grid-${k}`).innerHTML =
+        '<p class="grid-loading">⚠️ Sorten konnten nicht geladen werden.</p>';
+    });
+    return;
+  }
+
+  ['milch','sorbet','kinder'].forEach(kat => {
+    const grid  = document.getElementById(`grid-${kat}`);
+    const items = data.filter(s => s.kategorie === kat);
+    grid.innerHTML = items.length
+      ? items.map(renderCard).join('')
+      : '<p class="grid-loading">Noch keine Sorten in dieser Kategorie.</p>';
+    grid.querySelectorAll('.flavor-card').forEach(el => revealObs.observe(el));
+  });
+}
+
 /* ---- burger ---- */
 const burger = document.getElementById('burger');
 const mobileMenu = document.getElementById('mobileMenu');
@@ -863,6 +711,9 @@ const revealObs = new IntersectionObserver(
   { threshold: 0.1 }
 );
 document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ---- Sorten dynamisch laden ---- */
+loadSorten();
 
 /* ---- scroll ice animation ---- */
 const section  = document.getElementById('scroll-anim');
