@@ -110,6 +110,7 @@
   .scroll-arrow{width:20px;height:20px;border-right:2px solid var(--palmiero);border-bottom:2px solid var(--palmiero);transform:rotate(45deg);animation:arrowBounce 1.2s ease-in-out infinite}
   @keyframes arrowBounce{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(5px)}}
   .ice-stage{position:relative;width:320px;height:520px;margin-top:10rem}
+  @media(min-width:701px){.ice-stage{margin-top:18rem}}
   .anim-cone{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:100px solid transparent;border-right:100px solid transparent;border-top:200px solid #C8860A;filter:drop-shadow(0 10px 30px rgba(59,31,14,.3));z-index:1}
   .anim-cone::before{content:'';position:absolute;top:-200px;left:-100px;width:200px;height:200px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.08) 0,rgba(255,255,255,.08) 4px,transparent 4px,transparent 10px),repeating-linear-gradient(-45deg,rgba(255,255,255,.08) 0,rgba(255,255,255,.08) 4px,transparent 4px,transparent 10px);clip-path:polygon(50% 100%,0% 0%,100% 0%)}
   .anim-cone::after{content:'';position:absolute;top:-200px;left:-100px;width:200px;height:200px;background:repeating-linear-gradient(0deg,rgba(139,69,19,.15) 0,rgba(139,69,19,.15) 1px,transparent 1px,transparent 14px),repeating-linear-gradient(90deg,rgba(139,69,19,.15) 0,rgba(139,69,19,.15) 1px,transparent 1px,transparent 14px);clip-path:polygon(50% 100%,0% 0%,100% 0%)}
