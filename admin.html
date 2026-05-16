@@ -76,6 +76,8 @@
   .btn-primary:hover { background: var(--choco); }
   .btn-danger  { background: #fff0f0; color: var(--red); border: 1.5px solid #f8c8c8; padding: .5rem 1rem; font-size: .72rem; border-radius: 8px; }
   .btn-danger:hover  { background: var(--red); color: white; border-color: var(--red); }
+  .btn-edit { background: #f0f4ff; color: #1a4db5; border: 1.5px solid #c0d0f8; padding: .5rem 1rem; font-size: .72rem; border-radius: 8px; }
+  .btn-edit:hover { background: #1a4db5; color: white; border-color: #1a4db5; }
   .btn-success { background: #f0faf4; color: var(--green); border: 1.5px solid #b8e8cc; }
   .btn-success:hover { background: var(--green); color: white; border-color: var(--green); }
   .btn-sm { padding: .5rem 1.2rem; font-size: .72rem; border-radius: 8px; }
@@ -192,13 +194,13 @@
     overflow: hidden;
   }
   .sorten-table-head {
-    display: grid; grid-template-columns: 48px 1fr 2fr 100px 80px 90px;
+    display: grid; grid-template-columns: 48px 1fr 2fr 100px 80px 160px;
     background: var(--choco); color: rgba(253,246,236,.65);
     font-size: .65rem; letter-spacing: .15em; text-transform: uppercase;
     padding: .9rem 1.2rem; gap: 1rem; align-items: center;
   }
   .sorte-row {
-    display: grid; grid-template-columns: 48px 1fr 2fr 100px 80px 90px;
+    display: grid; grid-template-columns: 48px 1fr 2fr 100px 80px 160px;
     padding: 1rem 1.2rem; gap: 1rem; align-items: center;
     border-bottom: 1px solid var(--border);
     transition: background .15s;
@@ -279,9 +281,9 @@
 
   <main>
 
-    <!-- NEUE SORTE HINZUFÜGEN -->
+    <!-- NEUE SORTE HINZUFÜGEN / BEARBEITEN -->
     <div class="add-card">
-      <h2>🍦 Neue Sorte hinzufügen</h2>
+      <h2 id="form-title">🍦 Neue Sorte hinzufügen</h2>
       <div class="add-form-grid">
         <div class="form-group">
           <label>Name *</label>
@@ -320,6 +322,7 @@
             <div class="u-filename" id="upload-filename"></div>
           </div>
           <div class="upload-progress" id="upload-progress">⏳ Bild wird hochgeladen …</div>
+          <button type="button" id="remove-bild-btn" onclick="removeBildAction()" style="display:none;margin-top:.5rem;background:none;border:none;color:var(--red);font-size:.75rem;cursor:pointer;text-decoration:underline;">✕ Bild entfernen</button>
         </div>
         <div class="form-group">
           <label>&nbsp;</label>
@@ -334,7 +337,8 @@
         </div>
       </div>
       <div class="form-actions">
-        <button class="btn btn-success" onclick="addSorte()">✓ Sorte speichern</button>
+        <button class="btn btn-success" id="save-btn" onclick="saveSorte()">✓ Sorte speichern</button>
+        <button class="btn btn-outline btn-sm" id="cancel-btn" onclick="cancelEdit()" style="display:none">✕ Abbrechen</button>
         <button class="btn btn-outline btn-sm" onclick="resetForm()">Zurücksetzen</button>
         <span class="save-feedback" id="save-feedback">✓ Gespeichert!</span>
       </div>
@@ -382,8 +386,11 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 /* ── STATE ── */
-let alleSorten   = [];
+let alleSorten    = [];
 let aktiverFilter = 'alle';
+let editingId     = null;
+let editingBildUrl = null;
+let bildEntfernen  = false;
 
 /* ── AUTH ── */
 async function doLogin() {
@@ -468,10 +475,9 @@ function renderListe() {
       <div class="sorte-desc">${s.beschreibung || '—'}</div>
       <div><span class="kat-badge kat-${s.kategorie}">${katLabel(s.kategorie)}</span></div>
       <div>${s.premium ? '<span class="premium-badge">Premium</span>' : ''}</div>
-      <div>
-        <button class="btn btn-danger" onclick="deleteSorte('${s.id}', '${s.name.replace(/'/g,"\\'")}')">
-          🗑 Löschen
-        </button>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <button class="btn btn-edit" onclick="startEdit('${s.id}')">✏️ Bearbeiten</button>
+        <button class="btn btn-danger" onclick="deleteSorte('${s.id}', '${s.name.replace(/'/g,"\\'")}')">🗑 Löschen</button>
       </div>
     </div>`).join('');
 }
@@ -535,7 +541,15 @@ function applyFilePreview(file) {
   fileInput.files = dt.files;
 }
 
-/* ── SORTE HINZUFÜGEN ── */
+/* ── SORTE SPEICHERN (neu oder bearbeiten) ── */
+async function saveSorte() {
+  if (editingId) {
+    await updateSorte();
+  } else {
+    await addSorte();
+  }
+}
+
 async function addSorte() {
   const name = document.getElementById('f-name').value.trim();
   document.getElementById('add-error').textContent = '';
@@ -581,12 +595,132 @@ async function addSorte() {
     return;
   }
 
+  showSaveFeedback();
+  resetForm();
+  loadAlleSorten();
+}
+
+async function updateSorte() {
+  const name = document.getElementById('f-name').value.trim();
+  document.getElementById('add-error').textContent = '';
+
+  if (!name) {
+    document.getElementById('add-error').textContent = 'Bitte einen Namen eingeben.';
+    return;
+  }
+
+  let bildUrl = bildEntfernen ? null : editingBildUrl;
+  const file = fileInput.files[0];
+
+  if (file) {
+    if (file.size > 5 * 1024 * 1024) {
+      document.getElementById('add-error').textContent = 'Bild ist zu groß (max. 5 MB).';
+      return;
+    }
+    const prog = document.getElementById('upload-progress');
+    prog.style.display = 'block';
+    try {
+      bildUrl = await uploadBild(file);
+      if (editingBildUrl) {
+        const oldPath = getStoragePath(editingBildUrl);
+        if (oldPath) await sb.storage.from(BUCKET).remove([oldPath]);
+      }
+    } catch (e) {
+      prog.style.display = 'none';
+      document.getElementById('add-error').textContent = 'Bild-Upload fehlgeschlagen: ' + e.message;
+      return;
+    }
+    prog.style.display = 'none';
+  } else if (bildEntfernen && editingBildUrl) {
+    const oldPath = getStoragePath(editingBildUrl);
+    if (oldPath) await sb.storage.from(BUCKET).remove([oldPath]);
+  }
+
+  const updates = {
+    name,
+    kategorie:    document.getElementById('f-kategorie').value,
+    beschreibung: document.getElementById('f-beschreibung').value.trim() || null,
+    farbe:        document.getElementById('f-farbe').value,
+    premium:      document.getElementById('f-premium').checked,
+    bild_url:     bildUrl,
+    reihenfolge:  parseInt(document.getElementById('f-reihenfolge').value) || null,
+  };
+
+  const { error } = await sb.from('sorten').update(updates).eq('id', editingId);
+
+  if (error) {
+    document.getElementById('add-error').textContent = 'Fehler: ' + error.message;
+    return;
+  }
+
+  showSaveFeedback();
+  cancelEdit();
+  loadAlleSorten();
+}
+
+/* ── BEARBEITEN START / ABBRECHEN ── */
+function startEdit(id) {
+  const s = alleSorten.find(s => s.id === id);
+  if (!s) return;
+
+  editingId      = id;
+  editingBildUrl = s.bild_url;
+  bildEntfernen  = false;
+
+  document.getElementById('f-name').value         = s.name;
+  document.getElementById('f-kategorie').value    = s.kategorie;
+  document.getElementById('f-beschreibung').value = s.beschreibung || '';
+  document.getElementById('f-farbe').value        = s.farbe || '#C0392B';
+  document.getElementById('f-premium').checked    = s.premium;
+  document.getElementById('f-reihenfolge').value  = s.reihenfolge ?? '';
+  document.getElementById('add-error').textContent = '';
+  fileInput.value = '';
+  updateColorPreview();
+
+  if (s.bild_url) {
+    const img = document.getElementById('upload-preview');
+    img.src = s.bild_url;
+    img.style.display = 'block';
+    document.getElementById('upload-placeholder').style.display = 'none';
+    document.getElementById('upload-filename').textContent = 'Aktuelles Bild';
+    document.getElementById('remove-bild-btn').style.display = 'inline-block';
+  } else {
+    document.getElementById('upload-preview').style.display = 'none';
+    document.getElementById('upload-placeholder').style.display = 'block';
+    document.getElementById('upload-filename').textContent = '';
+    document.getElementById('remove-bild-btn').style.display = 'none';
+  }
+
+  document.getElementById('form-title').textContent = '✏️ Sorte bearbeiten';
+  document.getElementById('save-btn').textContent   = '✓ Änderungen speichern';
+  document.getElementById('cancel-btn').style.display = 'inline-flex';
+
+  document.querySelector('.add-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function cancelEdit() {
+  editingId      = null;
+  editingBildUrl = null;
+  bildEntfernen  = false;
+  document.getElementById('form-title').textContent   = '🍦 Neue Sorte hinzufügen';
+  document.getElementById('save-btn').textContent     = '✓ Sorte speichern';
+  document.getElementById('cancel-btn').style.display = 'none';
+  resetForm();
+}
+
+function removeBildAction() {
+  bildEntfernen = true;
+  document.getElementById('upload-preview').style.display = 'none';
+  document.getElementById('upload-placeholder').style.display = 'block';
+  document.getElementById('upload-filename').textContent = '';
+  document.getElementById('remove-bild-btn').style.display = 'none';
+  fileInput.value = '';
+}
+
+function showSaveFeedback() {
   const fb = document.getElementById('save-feedback');
   fb.classList.add('show');
   setTimeout(() => fb.classList.remove('show'), 2500);
-
-  resetForm();
-  loadAlleSorten();
 }
 
 /* ── SORTE LÖSCHEN ── */
