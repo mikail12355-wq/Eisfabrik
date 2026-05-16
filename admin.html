@@ -140,6 +140,22 @@
   .checkbox-row { display: flex; align-items: center; gap: .7rem; margin-top: .3rem; }
   .checkbox-row input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: var(--palmiero); }
   .checkbox-row label { font-size: .88rem; color: var(--text-mid); cursor: pointer; }
+
+  /* ── IMAGE UPLOAD ── */
+  .upload-area {
+    border: 2px dashed var(--border); border-radius: 12px;
+    padding: 1.5rem 1rem; text-align: center; cursor: pointer;
+    transition: border-color .2s, background .2s; background: var(--cream);
+  }
+  .upload-area:hover, .upload-area.dragover {
+    border-color: var(--palmiero); background: var(--vanilla);
+  }
+  .upload-area .u-icon { font-size: 1.6rem; margin-bottom: .4rem; }
+  .upload-area .u-text { font-size: .8rem; color: var(--text-mid); }
+  .upload-area .u-filename { font-size: .72rem; color: var(--palmiero); margin-top: .3rem; font-weight: 500; }
+  #upload-preview { max-height: 110px; max-width: 100%; border-radius: 8px; object-fit: cover; display: none; margin: .5rem auto 0; }
+  .upload-progress { font-size: .78rem; color: var(--palmiero); margin-top: .5rem; display: none; }
+  .sorte-thumb { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
   .form-actions { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
   .save-feedback { font-size: .82rem; color: var(--green); font-weight: 600; opacity: 0; transition: opacity .3s; }
   .save-feedback.show { opacity: 1; }
@@ -291,9 +307,19 @@
             <span style="font-size:.78rem;color:var(--text-mid)">Für die Karte</span>
           </div>
         </div>
-        <div class="form-group">
-          <label>Bild-URL <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
-          <input type="url" id="f-bild" placeholder="https://… (leer lassen = Farbverlauf)">
+        <div class="form-group span2">
+          <label>Bild <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional – leer lassen = Farbverlauf)</span></label>
+          <div class="upload-area" id="upload-area">
+            <input type="file" id="f-bild-file" accept="image/*" style="display:none">
+            <div id="upload-placeholder">
+              <div class="u-icon">📷</div>
+              <div class="u-text">Klicken oder Bild hierher ziehen</div>
+              <div class="u-text" style="font-size:.7rem;margin-top:.2rem">JPG, PNG, WebP — max. 5 MB</div>
+            </div>
+            <img id="upload-preview" alt="Vorschau">
+            <div class="u-filename" id="upload-filename"></div>
+          </div>
+          <div class="upload-progress" id="upload-progress">⏳ Bild wird hochgeladen …</div>
         </div>
         <div class="form-group">
           <label>&nbsp;</label>
@@ -431,7 +457,10 @@ function renderListe() {
 
   document.getElementById('sorten-list').innerHTML = gefiltert.map(s => `
     <div class="sorte-row" id="row-${s.id}">
-      <div class="sorte-ball" style="background:radial-gradient(circle at 35% 35%,${lightenHex(s.farbe)},${s.farbe || '#C0392B'})"></div>
+      ${s.bild_url
+        ? `<img class="sorte-thumb" src="${s.bild_url}" alt="${s.name}">`
+        : `<div class="sorte-ball" style="background:radial-gradient(circle at 35% 35%,${lightenHex(s.farbe)},${s.farbe || '#C0392B'})"></div>`
+      }
       <div>
         <div class="sorte-name">${s.name}</div>
         ${s.reihenfolge != null ? `<div style="font-size:.65rem;color:var(--text-mid);margin-top:.2rem">Nr. ${s.reihenfolge}</div>` : ''}
@@ -455,6 +484,57 @@ function filterKat(btn) {
   renderListe();
 }
 
+/* ── BILD UPLOAD ── */
+const BUCKET = 'eisbilder';
+
+async function uploadBild(file) {
+  const ext  = file.name.split('.').pop().toLowerCase();
+  const path = `${Date.now()}-${Math.random().toString(36).slice(2,7)}.${ext}`;
+  const { error } = await sb.storage.from(BUCKET).upload(path, file, {
+    contentType: file.type, upsert: false,
+  });
+  if (error) throw error;
+  return sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
+}
+
+function getStoragePath(url) {
+  const marker = `/${BUCKET}/`;
+  const idx = url ? url.indexOf(marker) : -1;
+  return idx !== -1 ? url.slice(idx + marker.length) : null;
+}
+
+/* ── DRAG & DROP + PREVIEW ── */
+const uploadArea = document.getElementById('upload-area');
+const fileInput  = document.getElementById('f-bild-file');
+
+uploadArea.addEventListener('click', () => fileInput.click());
+uploadArea.addEventListener('dragover',  e => { e.preventDefault(); uploadArea.classList.add('dragover'); });
+uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+uploadArea.addEventListener('drop', e => {
+  e.preventDefault();
+  uploadArea.classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) applyFilePreview(file);
+});
+fileInput.addEventListener('change', e => {
+  if (e.target.files[0]) applyFilePreview(e.target.files[0]);
+});
+
+function applyFilePreview(file) {
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = document.getElementById('upload-preview');
+    img.src = ev.target.result;
+    img.style.display = 'block';
+    document.getElementById('upload-placeholder').style.display = 'none';
+    document.getElementById('upload-filename').textContent = file.name;
+  };
+  reader.readAsDataURL(file);
+  const dt = new DataTransfer();
+  dt.items.add(file);
+  fileInput.files = dt.files;
+}
+
 /* ── SORTE HINZUFÜGEN ── */
 async function addSorte() {
   const name = document.getElementById('f-name').value.trim();
@@ -465,13 +545,32 @@ async function addSorte() {
     return;
   }
 
+  let bildUrl = null;
+  const file = fileInput.files[0];
+  if (file) {
+    if (file.size > 5 * 1024 * 1024) {
+      document.getElementById('add-error').textContent = 'Bild ist zu groß (max. 5 MB).';
+      return;
+    }
+    const prog = document.getElementById('upload-progress');
+    prog.style.display = 'block';
+    try {
+      bildUrl = await uploadBild(file);
+    } catch (e) {
+      prog.style.display = 'none';
+      document.getElementById('add-error').textContent = 'Bild-Upload fehlgeschlagen: ' + e.message;
+      return;
+    }
+    prog.style.display = 'none';
+  }
+
   const neueSort = {
     name,
     kategorie:    document.getElementById('f-kategorie').value,
     beschreibung: document.getElementById('f-beschreibung').value.trim() || null,
     farbe:        document.getElementById('f-farbe').value,
     premium:      document.getElementById('f-premium').checked,
-    bild_url:     document.getElementById('f-bild').value.trim() || null,
+    bild_url:     bildUrl,
     reihenfolge:  parseInt(document.getElementById('f-reihenfolge').value) || null,
   };
 
@@ -497,12 +596,18 @@ async function deleteSorte(id, name) {
   const row = document.getElementById(`row-${id}`);
   if (row) row.style.opacity = '.4';
 
+  const sorte = alleSorten.find(s => s.id === id);
   const { error } = await sb.from('sorten').delete().eq('id', id);
 
   if (error) {
     alert('Fehler beim Löschen: ' + error.message);
     if (row) row.style.opacity = '1';
     return;
+  }
+
+  if (sorte?.bild_url) {
+    const path = getStoragePath(sorte.bild_url);
+    if (path) await sb.storage.from(BUCKET).remove([path]);
   }
 
   loadAlleSorten();
@@ -529,12 +634,15 @@ function updateColorPreview() {
 function resetForm() {
   document.getElementById('f-name').value         = '';
   document.getElementById('f-beschreibung').value = '';
-  document.getElementById('f-bild').value         = '';
   document.getElementById('f-premium').checked    = false;
   document.getElementById('f-reihenfolge').value  = '';
   document.getElementById('f-farbe').value        = '#C0392B';
   document.getElementById('f-kategorie').value    = 'milch';
   document.getElementById('add-error').textContent = '';
+  document.getElementById('upload-preview').style.display = 'none';
+  document.getElementById('upload-placeholder').style.display = 'block';
+  document.getElementById('upload-filename').textContent = '';
+  fileInput.value = '';
   updateColorPreview();
 }
 </script>
