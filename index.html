@@ -163,8 +163,9 @@
   .flavor-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(59,31,14,.12)}
   .flavor-card.premium::after{content:'PREMIUM';position:absolute;top:.7rem;right:.7rem;background:var(--palmiero);color:white;font-size:.45rem;letter-spacing:.2em;padding:.2rem .5rem;border-radius:50px}
   .flavor-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:18px 18px 0 0;background:var(--accent,var(--choco))}
-  .flavor-ball{width:75px;height:75px;border-radius:50%;margin:0 auto 1rem;box-shadow:inset -10px -7px 20px rgba(0,0,0,.2),0 4px 16px rgba(0,0,0,.1);overflow:hidden}
-  .flavor-ball img{width:100%;height:100%;object-fit:cover;display:block}
+  .flavor-ball{width:75px;height:75px;border-radius:50%;margin:0 auto 1rem;box-shadow:inset -10px -7px 20px rgba(0,0,0,.2),0 4px 16px rgba(0,0,0,.1)}
+  .flavor-img{height:110px;display:flex;align-items:flex-end;justify-content:center;margin:0 auto 1rem}
+  .flavor-img img{max-height:110px;max-width:100%;object-fit:contain;display:block;filter:drop-shadow(0 6px 12px rgba(0,0,0,.18))}
   .flavor-name{font-family:'Dancing Script',cursive;font-size:1.1rem;font-weight:600;color:var(--palmiero);margin-bottom:.3rem}
   .flavor-desc{font-size:.68rem;color:var(--text-mid);line-height:1.6}
   .grid-loading{grid-column:1/-1;text-align:center;padding:3rem 1rem;color:var(--text-mid);font-size:.85rem;letter-spacing:.08em;opacity:.7}
@@ -667,7 +668,7 @@ function lightenHex(hex, f = 0.38) {
 function renderCard(s) {
   const farbe = s.farbe || '#C0392B';
   const ball  = s.bild_url
-    ? `<div class="flavor-ball"><img src="${s.bild_url}" alt="${s.name}" loading="lazy"></div>`
+    ? `<div class="flavor-img"><img src="${s.bild_url}" alt="${s.name}" loading="lazy"></div>`
     : `<div class="flavor-ball" style="background:radial-gradient(circle at 35% 35%,${lightenHex(farbe)},${farbe})"></div>`;
   return `
     <div class="flavor-card${s.premium ? ' premium' : ''}" style="--accent:${farbe}">
