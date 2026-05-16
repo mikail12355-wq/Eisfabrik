@@ -32,7 +32,7 @@
   .nav-cta:hover{opacity:.85}
 
   /* BURGER */
-  .burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:4px;z-index:210;flex-shrink:0;-webkit-tap-highlight-color:transparent;-webkit-appearance:none;appearance:none;outline:none;user-select:none;color:inherit}
+  .burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:4px;z-index:210;flex-shrink:0;-webkit-tap-highlight-color:transparent;-webkit-appearance:none;appearance:none;outline:none;user-select:none;color:inherit;touch-action:manipulation}
   .burger:focus,.burger:active,.burger:focus-visible{outline:none;background:none;box-shadow:none;-webkit-tap-highlight-color:transparent}
   .burger span{display:block;height:2px;background:var(--choco);border-radius:2px;transition:transform .35s cubic-bezier(.77,0,.175,1),opacity .2s,width .3s}
   .burger span:nth-child(1){width:24px}
@@ -714,9 +714,9 @@ function toggleMenu(force) {
   mobileMenu.classList.toggle('open', open);
   document.body.style.overflow = open ? 'hidden' : '';
 }
-burger.addEventListener('touchstart', e => e.preventDefault(), { passive: false });
 burger.addEventListener('click', () => toggleMenu());
 document.querySelectorAll('.mob-link').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+document.getElementById('mobileMenu').addEventListener('click', e => { if (e.target === e.currentTarget) toggleMenu(false); });
 
 /* ---- tabs ---- */
 document.querySelectorAll('.tab-btn').forEach(btn => {
