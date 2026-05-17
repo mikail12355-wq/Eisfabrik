@@ -683,6 +683,7 @@ async function loadSorten() {
   const { data, error } = await sb
     .from('sorten')
     .select('*')
+    .neq('sichtbar', false)
     .order('reihenfolge', { ascending: true })
     .order('erstellt_am', { ascending: true });
 
